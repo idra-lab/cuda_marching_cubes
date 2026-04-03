@@ -30,7 +30,7 @@ grid = torch.zeros(128, 128, 128, device="cuda", dtype=torch.float32)
 verts, faces = mc_cuda.marching_cubes(grid, thresh=0.0)
 
 # verts: [V, 3] float32 — positions in grid-index space
-# faces: [F, 3] int32  — triangle indices, CCW winding
+# faces: [F, 3] int32  — triangle indices
 
 
 
@@ -50,7 +50,7 @@ verts, faces, normals = mc_cuda.marching_cubes(grid, thresh=0.0, mask=mask, comp
 ## API
 
 ```
-marching_cubes(grid, thresh, mask=None) -> (verts, faces)
+marching_cubes(grid, thresh, mask=None, compute_normals=False) -> (verts, faces, normals (optional))
 ```
 
 | Parameter | Type | Description |
@@ -58,7 +58,7 @@ marching_cubes(grid, thresh, mask=None) -> (verts, faces)
 | `grid`    | `float32 [X, Y, Z]` CUDA tensor | Signed distance (or any scalar field) values |
 | `thresh`  | `float` | Iso-surface level to extract (0.0 for TSDF) |
 | `mask`    | `bool [X, Y, Z]` CUDA tensor, optional | If given, only masked-in cells contribute faces |
-| `compute_normals` | `bool`, optional | If True, also compute vertex normals (requires 3D grid access) |
+| `compute_normals` | `bool`, optional | If True, also compute vertex normals |
 
 ## Credits
 
